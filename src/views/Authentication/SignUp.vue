@@ -24,18 +24,21 @@
         <b-input placeholder="Email" v-model="email" type="email" icon="email">
         </b-input>
       </b-field>
-
       <b-field label="Password">
         <b-input type="password" v-model="password" password-reveal> </b-input>
       </b-field>
-
-      <b-button type="is-info" @click="createAccount">Register</b-button>
+      <b-message type="is-danger" v-if="error" size="is-small">
+        {{ error }}
+      </b-message>
+      <b-button type="is-info" :loading="isLoading" @click="createAccount"
+        >Register</b-button
+      >
     </div>
   </section>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SignUp",
   data() {
@@ -47,8 +50,12 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters("auth", ["error", "isLoading"]),
+  },
+
   methods: {
-    ...mapActions(["signup"]),
+    ...mapActions("auth", ["signup"]),
     createAccount() {
       const user = {
         email: this.email,

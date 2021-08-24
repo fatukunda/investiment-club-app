@@ -10,13 +10,19 @@
         <b-input type="password" v-model="password" password-reveal> </b-input>
       </b-field>
 
-      <b-button type="is-info" @click="login">Sign In</b-button>
+      <b-message type="is-danger" v-if="error" size="is-small">
+        {{ error }}
+      </b-message>
+
+      <b-button type="is-info" :loading="isLoading" @click="login"
+        >Sign In</b-button
+      >
     </div>
   </section>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SignIn",
   data() {
@@ -26,8 +32,12 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters("auth", ["error", "isLoading"]),
+  },
+
   methods: {
-    ...mapActions(["signIn"]),
+    ...mapActions("auth", ["signIn"]),
     login() {
       const user = {
         email: this.email,

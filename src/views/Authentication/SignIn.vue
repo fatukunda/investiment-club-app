@@ -7,7 +7,14 @@
       </b-field>
 
       <b-field label="Password">
-        <b-input type="password" v-model="password" password-reveal> </b-input>
+        <b-input
+          placeholder="Password"
+          type="password"
+          v-model="password"
+          password-reveal
+          icon="lock"
+        >
+        </b-input>
       </b-field>
 
       <b-message type="is-danger" v-if="error" size="is-small">

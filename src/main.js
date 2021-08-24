@@ -35,6 +35,7 @@ firebase.auth().onAuthStateChanged((user) => {
     isVerified: user.emailVerified,
   };
   store.commit("auth/SET_USER", payload);
+  store.commit("auth/SET_LOGGED_IN", true);
 });
 
 new Vue({

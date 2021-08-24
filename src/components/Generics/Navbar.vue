@@ -17,13 +17,19 @@
     <template #end>
       <b-navbar-item tag="div">
         <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
+          <router-link
+            v-if="!isLoggedIn"
+            to="/signup"
+            class="button is-primary"
+          >
+            <strong>Sign Up</strong>
+          </router-link>
           <a v-if="isLoggedIn" class="button is-light" @click="signOut">
             Log out
           </a>
-          <a v-else class="button is-light"> Log in </a>
+          <router-link to="signin" v-else class="button is-light">
+            Sign In
+          </router-link>
         </div>
       </b-navbar-item>
     </template>

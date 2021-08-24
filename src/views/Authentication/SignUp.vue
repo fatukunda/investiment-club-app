@@ -3,9 +3,10 @@
     <div class="box">
       <b-field label="First Name">
         <b-input
-          placeholder="Please enter your First Name"
+          placeholder="First Name"
           v-model="firstName"
           type="text"
+          icon="account"
         >
         </b-input>
       </b-field>
@@ -25,7 +26,8 @@
         </b-input>
       </b-field>
       <b-field label="Password">
-        <b-input type="password" v-model="password" password-reveal> </b-input>
+        <b-input type="password" v-model="password" password-reveal icon="lock">
+        </b-input>
       </b-field>
       <b-message type="is-danger" v-if="error" size="is-small">
         {{ error }}
@@ -60,6 +62,8 @@ export default {
       const user = {
         email: this.email,
         password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName,
       };
       this.signup(user);
     },

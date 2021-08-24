@@ -1,14 +1,16 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 const state = {
   user: {},
   error: null,
   loading: false,
+  isLoggedIn: false,
 };
 
 const mutations = {
   SET_USER(state, user) {
     state.user = user;
+    state.isLoggedIn = true;
   },
 
   SET_ERROR(state, error) {
@@ -23,6 +25,8 @@ const mutations = {
 const getters = {
   error: (state) => state.error,
   isLoading: (state) => state.loading,
+  user: (state) => state.user,
+  isLoggedIn: (state) => state.isLoggedIn,
 };
 
 const actions = {
@@ -49,7 +53,7 @@ const actions = {
         .auth()
         .signInWithEmailAndPassword(email, password);
       const payload = {
-        displayName: user.displayName,
+        displayName: user.displayName || "",
         email: user.email,
         isVerified: user.emailVerified,
       };
@@ -59,6 +63,10 @@ const actions = {
       context.commit("SET_ERROR", error.message);
       context.commit("SET_LOADING", false);
     }
+  },
+
+  async signOut() {
+    await firebase.auth().signOut();
   },
 };
 

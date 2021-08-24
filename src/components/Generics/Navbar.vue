@@ -20,7 +20,10 @@
           <a class="button is-primary">
             <strong>Sign up</strong>
           </a>
-          <a class="button is-light"> Log in </a>
+          <a v-if="isLoggedIn" class="button is-light" @click="signOut">
+            Log out
+          </a>
+          <a v-else class="button is-light"> Log in </a>
         </div>
       </b-navbar-item>
     </template>
@@ -28,7 +31,15 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
+  computed: {
+    ...mapGetters("auth", ["isLoggedIn", "user"]),
+  },
+
+  methods: {
+    ...mapActions("auth", ["signOut"]),
+  },
 };
 </script>

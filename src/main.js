@@ -29,13 +29,15 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.auth().onAuthStateChanged((user) => {
-  const payload = {
-    displayName: user.displayName,
-    email: user.email,
-    isVerified: user.emailVerified,
-  };
-  store.commit("auth/SET_USER", payload);
-  store.commit("auth/SET_LOGGED_IN", true);
+  if (user) {
+    const payload = {
+      displayName: user.displayName,
+      email: user.email,
+      isVerified: user.emailVerified,
+    };
+    store.commit("auth/SET_USER", payload);
+    store.commit("auth/SET_LOGGED_IN", true);
+  }
 });
 
 new Vue({

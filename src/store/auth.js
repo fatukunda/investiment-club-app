@@ -40,8 +40,7 @@ const actions = {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       const user = firebase.auth().currentUser;
-      user.updateProfile({ displayName: `${firstName} ${lastName}` });
-      console.log(user);
+      await user.updateProfile({ displayName: `${firstName} ${lastName}` });
       const payload = {
         displayName: user.displayName,
         email: user.email,
@@ -63,7 +62,7 @@ const actions = {
         .auth()
         .signInWithEmailAndPassword(email, password);
       const payload = {
-        displayName: user.displayName || "",
+        displayName: user.displayName,
         email: user.email,
         isVerified: user.emailVerified,
       };
@@ -77,7 +76,6 @@ const actions = {
   },
 
   async signOut(context) {
-    console.log("Signing out....");
     await firebase.auth().signOut();
     context.commit("SET_USER", {});
     context.commit("SET_LOGGED_IN", false);

@@ -30,7 +30,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.auth().onAuthStateChanged((user) => {
   const payload = {
-    displayName: user.displayName || "",
+    displayName: user.displayName,
     email: user.email,
     isVerified: user.emailVerified,
   };
